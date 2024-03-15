@@ -25,12 +25,9 @@ def on_btn_click():
 
 @st.cache_resource
 def load_model():
-    model = (
-        AutoModelForCausalLM.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
-        .to(torch.bfloat16)
-        .cuda()
-    )
-    tokenizer = AutoTokenizer.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
+    model_dir = "J:\HuggingFace\models\Shanghai_AI_Laboratory\internlm-chat-7b-v1_1"
+    model = AutoModelForCausalLM.from_pretrained(model_dir,device_map="cuda",  trust_remote_code=True, torch_dtype=torch.float16).cuda()
+    tokenizer = AutoTokenizer.from_pretrained(model_dir, device_map="cuda", trust_remote_code=True)
     return model, tokenizer
 
 
